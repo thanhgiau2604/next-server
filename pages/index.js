@@ -1,7 +1,23 @@
 import Head from 'next/head'
+import {useState} from 'react'
 import styles from '../styles/Home.module.css'
-
+import $ from 'jquery'
+const protocol = (typeof window !== "undefined")&&(window.location.protocol);
+const host = (typeof window !== "undefined")&&(window.location.hostname);
+const port = 3001;
 export default function Home() {
+  const [data, setData] = useState([]);
+  const getListStudent = () => {
+    console.log(protocol);
+    console.log(host);
+    $.get(`${protocol}//${host}:${port}/data`, (data) => {
+      if (data) {
+        setData(data);
+      } else {
+        setData([]);
+      }
+    })
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -49,7 +65,12 @@ export default function Home() {
           </a>
         </div>
       </main>
-
+      <div>
+        <button onClick = {getListStudent}>Click me get list student</button>
+        { data.map((value, index) => {
+          return(<h1 key={index}>{value}</h1>)
+        })}
+      </div>
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
