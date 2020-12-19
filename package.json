@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "concurrently --kill-others \"next dev\" \"node server.js\"",
     "build": "next build",
-    "start": "concurrently --kill-others \"next start -p $PORT\" \"node server.js\""
+    "start": "concurrently --kill-others \"next start -p $PORT\" \"node server.js\"",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "express": "^4.17.1",
